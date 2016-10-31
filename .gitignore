@@ -1,0 +1,16 @@
+*.svn
+*.pyc
+*.mo
+*.*~
+fastcgi/
+node_modules/
+log/
+.sass-cache
+*.DS_Store
+.idea/
+deploy_note.html
+deploy/deploy_note.html
+nightwatch/reports/
+nightwatch/*.log
+ENV/
+*.swp
