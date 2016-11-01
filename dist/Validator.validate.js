@@ -43,9 +43,9 @@ module.exports =
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+	'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -55,7 +55,7 @@ module.exports =
 
 	/**
 	 * Validate
-	 * @author Jennie Ji - jennie.ji@hotmail.com
+	 * @author Jennie Ji - jennie.ji@shopeemobile.com
 	 * 
 	 * @todo Promise compatibility
 	 */
@@ -68,16 +68,28 @@ module.exports =
 	 * ValidatePromise
 	 * ValidatePromise.then() - Valid
 	 * ValidatePromise.catch(errors) - Invalid
-	 * errors - can be normal exceptions, or an Array of validate error
-	 * errors.validator - validate function name
-	 * errors.parameters - validate function parameters
+	 * errors - can be normal exceptions, or an Array of {@link ValidateError}
 	 * @typedef ValidatePromise {Promise}
+	 */
+	/**
+	 * ValidateError
+	 * @typedef ValidateError {object}
+	 * @prop ValidateError.validator {function} validate function
+	 * @prop ValidateError.parameters {Array} validate function parameters
+	 * @prop ValidateError.error {} Original error response
 	 */
 
 	/**
+	 * @public
+	 * @function
 	 * @param value 		{}
 	 * @param validators 	{Array.<Validator>}
 	 * @return 			{ValidatePromise}
+	 * @example
+	 * 	validate('jennie.ji@shopeemobile.com', [
+	 *			[length, {min: 0}],
+	 *			[email]
+	 * 	]);
 	 */
 	function validate(value, validators) {
 		if (Array.isArray(validators)) {
@@ -102,10 +114,11 @@ module.exports =
 						}
 						// to deal with this in catch
 						throw '';
-					}).catch(function () {
+					}).catch(function (error) {
 						throw {
-							validator: validator.name,
-							parameters: params
+							validator: validator,
+							parameters: params,
+							error: error
 						};
 					}));
 				}
@@ -126,9 +139,27 @@ module.exports =
 	}
 
 	/**
+	 * @public
+	 * @function
 	 * @param group 			 	{Object.<object>}
 	 * @param [exitOnceError=true] 	{boolean}
 	 * @return						{ValidatePromise}
+	 * @example
+	 *		groupValidate({
+	 *			name: {
+	 *				value: 'Jennie',
+	 *				validators: [
+	 *					[length, {min: 3, max: 50}]
+	 *				]
+	 *			},
+	 *			email: {
+	 *				value: 'jennie.ji@shopeemobile.com',
+	 *				validators: [
+	 *					[length, {min: 0}],
+	 *					[email]
+	 *				]
+	 *			}
+	 * 		});
 	 */
 	function groupValidate(group) {
 		var exitOnceError = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
@@ -175,27 +206,10 @@ module.exports =
 		});
 	}
 
-	module.export = {
+	module.exports = {
 		validate: validate,
 		groupValidate: groupValidate
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
-
-/***/ },
-/* 1 */
-/***/ function(module, exports) {
-
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
-	}
-
 
 /***/ }
 /******/ ]);

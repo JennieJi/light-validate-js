@@ -1,29 +1,40 @@
 /**
  * Validate
- * @author Jennie Ji - jennie.ji@hotmail.com
+ * @author Jennie Ji - jennie.ji@shopeemobile.com
  * 
  * @todo Promise compatibility
  */
 
- /**
-  * Validator
-  * @typedef Validator {Array.<function|object>}	First parameter is the validator function, following by parameters
-  */
- /**
-  * ValidatePromise
-  * ValidatePromise.then() - Valid
-  * ValidatePromise.catch(errors) - Invalid
-  * errors - can be normal exceptions, or an Array of validate error
-  * errors.validator - validate function name
-  * errors.parameters - validate function parameters
-  * @typedef ValidatePromise {Promise}
-  */
+/**
+ * Validator
+ * @typedef Validator {Array.<function|object>}	First parameter is the validator function, following by parameters
+ */
+/**
+ * ValidatePromise
+ * @typedef ValidatePromise {Promise}
+ * @prop ValidatePromise.then {function} Valid    
+ * @prop ValidatePromise.catch {funciton} Invalid. Parameter: errors - can be normal exceptions, or single/array of {@link ValidateError}
+ */
+/**
+ * ValidateError
+ * @typedef ValidateError {object}
+ * @prop ValidateError.validator {function} validate function
+ * @prop ValidateError.parameters {Array} validate function parameters
+ * @prop ValidateError.error {} Original error response
+ */
 
- /**
-  * @param value 		{}
-  * @param validators 	{Array.<Validator>}
-  * @return 			{ValidatePromise}
-  */
+/**
+ * @public
+ * @function
+ * @param value 		{}
+ * @param validators 	{Array.<Validator>}
+ * @return 				{ValidatePromise}
+ * @example
+ * validate('jennie.ji@shopeemobile.com', [
+ *	[length, {min: 0}],
+ *	[email]
+ *]);
+ */
 function validate(value, validators) {
 	if (Array.isArray(validators)) {
 		const validatorsLen = validators.length;
@@ -41,10 +52,11 @@ function validate(value, validators) {
 					}
 					// to deal with this in catch
 					throw '';
-				}).catch(() => {
+				}).catch(error => {
 					throw {
-						validator: validator.name,
-						parameters: params
+						validator: validator,
+						parameters: params,
+						error
 					};
 				}));
 			}
@@ -59,9 +71,27 @@ function validate(value, validators) {
 }
 
 /**
+ * @public
+ * @function
  * @param group 			 	{Object.<object>}
  * @param [exitOnceError=true] 	{boolean}
  * @return						{ValidatePromise}
+ * @example
+ * groupValidate({
+ *	name: {
+ *		value: 'Jennie',
+ *		validators: [
+ *			[length, {min: 3, max: 50}]
+ *		]
+ *	},
+ * 	email: {
+ *		value: 'jennie.ji@shopeemobile.com',
+ *		validators: [
+ *			[length, {min: 0}],
+ *			[email]
+ *		]
+ *	}
+ * });
  */
 function groupValidate(group, exitOnceError = true) {
 	if (typeof group !== 'object') {
@@ -96,7 +126,7 @@ function groupValidate(group, exitOnceError = true) {
 	});
 }
 
-module.export = {
+module.exports = {
 	validate,
 	groupValidate
 };

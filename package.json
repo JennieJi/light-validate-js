@@ -4,8 +4,9 @@
   "description": "Javascript Validator",
   "main": "validator.js",
   "scripts": {
-    "test": "mocha test",
-    "docs": "jsdoc2md '*.js' > 'API.md'"
+    "build": "./node_modules/.bin/webpack",
+    "test": "./node_modules/.bin/mocha test",
+    "docs": "./node_modules/.bin/jsdoc2md '*.js' > 'API.md'"
   },
   "keywords": [
     "Javascript",
