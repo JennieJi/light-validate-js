@@ -10,14 +10,14 @@
 ## Typedefs
 
 <dl>
-<dt><a href="#Validator">Validator</a> : <code>Array.&lt;(function()|object)&gt;</code></dt>
+<dt><a href="#Validator">Validator</a> : <code>object</code> | <code>Array.&lt;(function()|object)&gt;</code></dt>
 <dd><p>Validator</p>
-</dd>
-<dt><a href="#ValidatePromise">ValidatePromise</a> : <code>Promise</code></dt>
-<dd><p>ValidatePromise</p>
 </dd>
 <dt><a href="#ValidateError">ValidateError</a> : <code>object</code></dt>
 <dd><p>ValidateError</p>
+</dd>
+<dt><a href="#ValidatePromise">ValidatePromise</a> : <code>Promise</code></dt>
+<dd><p>ValidatePromise</p>
 </dd>
 </dl>
 
@@ -70,22 +70,17 @@ groupValidate({
 ```
 <a name="Validator"></a>
 
-## Validator : <code>Array.&lt;(function()\|object)&gt;</code>
+## Validator : <code>object</code> &#124; <code>Array.&lt;(function()\|object)&gt;</code>
 Validator
-
-**Kind**: global typedef  
-<a name="ValidatePromise"></a>
-
-## ValidatePromise : <code>Promise</code>
-ValidatePromise
 
 **Kind**: global typedef  
 **Properties**
 
-| Name | Type | Description |
-| --- | --- | --- |
-| ValidatePromise.then | <code>function</code> | Valid |
-| ValidatePromise.catch | <code>funciton</code> | Invalid. Parameter: errors - can be normal exceptions, or single/array of [ValidateError](#ValidateError) |
+| Name | Type |
+| --- | --- |
+| Validator.validator | <code>function</code> | 
+| Validator.parameters | <code>Array</code> | 
+| Validator.errorMessage | <code>string</code> | 
 
 <a name="ValidateError"></a>
 
@@ -100,4 +95,17 @@ ValidateError
 | ValidateError.validator | <code>function</code> | validate function |
 | ValidateError.parameters | <code>Array</code> | validate function parameters |
 | ValidateError.error |  | Original error response |
+
+<a name="ValidatePromise"></a>
+
+## ValidatePromise : <code>Promise</code>
+ValidatePromise
+
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| ValidatePromise.then | <code>function</code> | Valid |
+| ValidatePromise.catch | <code>funciton</code> | Invalid. Parameter: errors - can be normal exceptions, or single/array of [ValidateError](#ValidateError) |
 

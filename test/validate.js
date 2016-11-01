@@ -4,6 +4,7 @@ var validate = ValidateModule.validate,
 var assert = require('assert');
 
 var testValue = 'test';
+var errorMessage = 'test error'
 
 var valid = function() { return true; };
 var invalid = function () { return false; };
@@ -52,6 +53,7 @@ var assertInvalidError = function(result) {
 	assert.ok(typeof result.validator === 'function');
 	assert.ok(Array.isArray(result.parameters));
 	assert.ok(keys.includes('error'));
+	assert.ok(keys.includes('errorMessage'));
 };
 var assertInvalid = function(validatePromise) {
 	return function(done) {
@@ -92,12 +94,22 @@ describe('Single Validate', function() {
 		describe('Valid', function() {
 			it('1 validator without param', assertValid(validate(testValue, [[valid]])));
 			it('1 validator with param', assertValid(validate(testValue, [[validatorWithParam, true]])));
+			it('1 validator by passing object', assertValid(validate(testValue, [{
+				validator: validatorWithParam,
+				parameters: [true],
+				errorMessage
+			}])));
 			it('Multiple validator without param', assertValid(validate(testValue, [[valid], [valid], [valid]])));
 			it('Multiple validator with param', assertValid(validate(testValue, validGroup)));
 		});
 		describe('Invalid', function() {
 			it('1 validator without param', assertInvalid(validate(testValue, [[invalid]])));
 			it('1 validator with param', assertInvalid(validate(testValue, [[validatorWithParam, false]])));
+			it('1 validator by passing object', assertInvalid(validate(testValue, [{
+				validator: validatorWithParam,
+				parameters: [false],
+				errorMessage
+			}])));
 			it('Multiple validator without param', assertInvalid(validate(testValue, [[valid], [invalid], [valid]])));
 			it('Multiple validator with param', assertInvalid(validate(testValue, invalidGroup)));
 		});

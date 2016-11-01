@@ -56,20 +56,14 @@ module.exports =
 	/**
 	 * Validate
 	 * @author Jennie Ji - jennie.ji@shopeemobile.com
-	 * 
-	 * @todo Promise compatibility
 	 */
 
 	/**
 	 * Validator
-	 * @typedef Validator {Array.<function|object>}	First parameter is the validator function, following by parameters
-	 */
-	/**
-	 * ValidatePromise
-	 * ValidatePromise.then() - Valid
-	 * ValidatePromise.catch(errors) - Invalid
-	 * errors - can be normal exceptions, or an Array of {@link ValidateError}
-	 * @typedef ValidatePromise {Promise}
+	 * @typedef Validator {object|Array.<function|object>}	If it is array, first parameter is the validator function, following by parameters
+	 * @prop Validator.validator {function}
+	 * @prop Validator.parameters {Array}
+	 * @prop Validator.errorMessage {string}
 	 */
 	/**
 	 * ValidateError
@@ -78,18 +72,24 @@ module.exports =
 	 * @prop ValidateError.parameters {Array} validate function parameters
 	 * @prop ValidateError.error {} Original error response
 	 */
+	/**
+	 * ValidatePromise
+	 * @typedef ValidatePromise {Promise}
+	 * @prop ValidatePromise.then {function} Valid    
+	 * @prop ValidatePromise.catch {funciton} Invalid. Parameter: errors - can be normal exceptions, or single/array of {@link ValidateError}
+	 */
 
 	/**
 	 * @public
 	 * @function
 	 * @param value 		{}
 	 * @param validators 	{Array.<Validator>}
-	 * @return 			{ValidatePromise}
+	 * @return 				{ValidatePromise}
 	 * @example
-	 * 	validate('jennie.ji@shopeemobile.com', [
-	 *			[length, {min: 0}],
-	 *			[email]
-	 * 	]);
+	 * validate('jennie.ji@shopeemobile.com', [
+	 *	[length, {min: 0}],
+	 *	[email]
+	 *]);
 	 */
 	function validate(value, validators) {
 		if (Array.isArray(validators)) {
@@ -97,17 +97,24 @@ module.exports =
 			var validatePromises = [];
 
 			var _loop = function _loop(i) {
-				var _validators$i = _toArray(validators[i]);
+				var validatorConf = validators[i];
+				var validator = void 0;
+				var parameters = void 0;
+				var errorMessage = void 0;
+				if (Array.isArray(validatorConf)) {
+					var _validatorConf = _toArray(validatorConf);
 
-				var validator = _validators$i[0];
-
-				var params = _validators$i.slice(1);
-
-				if (typeof validator !== 'function') {
-					// TODO: throw meaniful error
-					throw '';
+					validator = _validatorConf[0];
+					parameters = _validatorConf.slice(1);
 				} else {
-					var promise = Promise.resolve(validator.apply(undefined, [value].concat(_toConsumableArray(params))));
+					validator = validatorConf.validator;
+					parameters = validatorConf.parameters;
+					errorMessage = validatorConf.errorMessage;
+				}
+				if (typeof validator !== 'function') {
+					throw 'Validator "' + validator + '" must be a function!';
+				} else {
+					var promise = Promise.resolve(validator.apply(undefined, [value].concat(_toConsumableArray(parameters))));
 					validatePromises.push(promise.then(function (result) {
 						if (result) {
 							return true;
@@ -117,7 +124,8 @@ module.exports =
 					}).catch(function (error) {
 						throw {
 							validator: validator,
-							parameters: params,
+							parameters: parameters,
+							errorMessage: errorMessage,
 							error: error
 						};
 					}));
@@ -133,8 +141,7 @@ module.exports =
 				throw err;
 			});
 		} else {
-			// TODO: throw meaniful error
-			throw '';
+			throw 'Second parameter should be a group of validators!';
 		}
 	}
 
@@ -145,39 +152,37 @@ module.exports =
 	 * @param [exitOnceError=true] 	{boolean}
 	 * @return						{ValidatePromise}
 	 * @example
-	 *		groupValidate({
-	 *			name: {
-	 *				value: 'Jennie',
-	 *				validators: [
-	 *					[length, {min: 3, max: 50}]
-	 *				]
-	 *			},
-	 *			email: {
-	 *				value: 'jennie.ji@shopeemobile.com',
-	 *				validators: [
-	 *					[length, {min: 0}],
-	 *					[email]
-	 *				]
-	 *			}
-	 * 		});
+	 * groupValidate({
+	 *	name: {
+	 *		value: 'Jennie',
+	 *		validators: [
+	 *			[length, {min: 3, max: 50}]
+	 *		]
+	 *	},
+	 * 	email: {
+	 *		value: 'jennie.ji@shopeemobile.com',
+	 *		validators: [
+	 *			[length, {min: 0}],
+	 *			[email]
+	 *		]
+	 *	}
+	 * });
 	 */
 	function groupValidate(group) {
 		var exitOnceError = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
 		if ((typeof group === 'undefined' ? 'undefined' : _typeof(group)) !== 'object') {
-			// TODO: throw meaniful error
-			throw '';
+			throw 'Validate group should be an object!';
 		}
 		var validatePromises = [];
 
 		var _loop2 = function _loop2(name) {
-			if ((typeof group === 'undefined' ? 'undefined' : _typeof(group)) !== 'object') {
-				// TODO: throw meaniful error
-				throw '';
+			var field = group[name];
+			if ((typeof field === 'undefined' ? 'undefined' : _typeof(field)) !== 'object') {
+				throw 'Validate group item should be an object!';
 			}
-			var _group$name = group[name];
-			var value = _group$name.value;
-			var validators = _group$name.validators;
+			var value = field.value;
+			var validators = field.validators;
 
 			var validatePromise = validate(value, validators);
 			validatePromises.push(validatePromise.catch(function (err) {
