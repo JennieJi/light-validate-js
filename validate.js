@@ -16,6 +16,8 @@
  * @prop ValidateError.validator {function} validate function
  * @prop ValidateError.parameters {Array} validate function parameters
  * @prop ValidateError.error {} Original error response
+ * @prop ValidateError.errorMessage {string} predefined error message
+ * @prop Validator.name {string} only exists in group validate
  */
 /**
  * ValidatePromise

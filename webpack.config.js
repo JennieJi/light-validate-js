@@ -7,7 +7,7 @@ module.exports = {
 		path: __dirname + '/dist',
 		filename: 'Validator.[name].js',
 		library: ['Validator', '[name]'],
-		libraryTarget: 'commonjs2'
+		libraryTarget: 'umd'
 	},
 	module: {
 		loaders: [

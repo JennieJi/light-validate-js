@@ -95,6 +95,8 @@ ValidateError
 | ValidateError.validator | <code>function</code> | validate function |
 | ValidateError.parameters | <code>Array</code> | validate function parameters |
 | ValidateError.error |  | Original error response |
+| ValidateError.errorMessage | <code>string</code> | predefined error message |
+| Validator.name | <code>string</code> | only exists in group validate |
 
 <a name="ValidatePromise"></a>
 

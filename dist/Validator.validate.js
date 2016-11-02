@@ -1,5 +1,14 @@
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["validate"] = factory();
+	else
+		root["Validator"] = root["Validator"] || {}, root["Validator"]["validate"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 
@@ -71,6 +80,8 @@ module.exports =
 	 * @prop ValidateError.validator {function} validate function
 	 * @prop ValidateError.parameters {Array} validate function parameters
 	 * @prop ValidateError.error {} Original error response
+	 * @prop ValidateError.errorMessage {string} predefined error message
+	 * @prop Validator.name {string} only exists in group validate
 	 */
 	/**
 	 * ValidatePromise
@@ -217,4 +228,6 @@ module.exports =
 	};
 
 /***/ }
-/******/ ]);
+/******/ ])
+});
+;
