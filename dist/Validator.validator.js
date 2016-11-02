@@ -54,21 +54,21 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+	'use strict';
 
-	var _regular = __webpack_require__(2);
+	var _regular = __webpack_require__(1);
 
 	var _regular2 = _interopRequireDefault(_regular);
 
-	var _numberRange = __webpack_require__(3);
+	var _numberRange = __webpack_require__(2);
 
 	var _numberRange2 = _interopRequireDefault(_numberRange);
 
-	var _length = __webpack_require__(4);
+	var _length = __webpack_require__(3);
 
 	var _length2 = _interopRequireDefault(_length);
 
-	var _email = __webpack_require__(5);
+	var _email = __webpack_require__(4);
 
 	var _email2 = _interopRequireDefault(_email);
 
@@ -78,37 +78,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Validator
 	 * @author Jennie Ji - jennie.ji@hotmail.com
 	 */
-	module.export = {
+	module.exports = {
 		Regular: _regular2.default,
 		NumberRange: _numberRange2.default,
 		Length: _length2.default,
 		Email: _email2.default
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
 
 /***/ },
 /* 1 */
 /***/ function(module, exports) {
 
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
-	}
+	"use strict";
 
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
-
-	module.export = function (value, _ref) {
+	module.exports = function (value, _ref) {
 		var regular = _ref.regular;
 
 		if (regular instanceof RegExp) {
@@ -116,17 +99,16 @@ return /******/ (function(modules) { // webpackBootstrap
 		}
 		return false;
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
 
 /***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/* 2 */
+/***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {"use strict";
+	"use strict";
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	module.export = function (value, _ref) {
+	module.exports = function (value, _ref) {
 		var min = _ref.min;
 		var max = _ref.max;
 		var excludeEdge = _ref.excludeEdge;
@@ -138,23 +120,22 @@ return /******/ (function(modules) { // webpackBootstrap
 		max = max || Infinity;
 		return value > min && value < max && (excludeEdge || value === min || value === max);
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+	'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	var _numberRange = __webpack_require__(3);
+	var _numberRange = __webpack_require__(2);
 
 	var _numberRange2 = _interopRequireDefault(_numberRange);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	module.export = function (value, _ref) {
+	module.exports = function (value, _ref) {
 		var min = _ref.min;
 		var max = _ref.max;
 		var excludeEdge = _ref.excludeEdge;
@@ -165,24 +146,22 @@ return /******/ (function(modules) { // webpackBootstrap
 		max = max || Infinity;
 		return (0, _numberRange2.default)(length, min, max, excludeEdge);
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+	'use strict';
 
-	var _regular = __webpack_require__(2);
+	var _regular = __webpack_require__(1);
 
 	var _regular2 = _interopRequireDefault(_regular);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	module.export = function (value) {
+	module.exports = function (value) {
 		return (0, _regular2.default)(value, /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|world|xxx|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i);
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)(module)))
 
 /***/ }
 /******/ ])
