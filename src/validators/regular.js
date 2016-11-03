@@ -8,7 +8,7 @@
 module.exports = function(value, hash = {}) {
 	let {regular} = hash;
 	if (regular instanceof RegExp) {
-		regular.test(value);
+		return regular.test(value);
 	}
 	return false;
 };

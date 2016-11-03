@@ -106,7 +106,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var regular = hash.regular;
 
 	  if (regular instanceof RegExp) {
-	    regular.test(value);
+	    return regular.test(value);
 	  }
 	  return false;
 	};
