@@ -11,7 +11,7 @@
 module.exports = function(value, hash = {}) {
 	if (typeof value !== 'number') { return false; }
 	let {min, max, excludeEdge} = hash;
-	min = min || -Infinity;
-	max = max || Infinity;
+	min = typeof min === 'number' ? min : -Infinity;
+	max = typeof max === 'number' ? max : Infinity;
 	return value > min && value < max || !excludeEdge &&  (value === min || value === max);
 };

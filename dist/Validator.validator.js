@@ -137,8 +137,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var max = hash.max;
 	  var excludeEdge = hash.excludeEdge;
 
-	  min = min || -Infinity;
-	  max = max || Infinity;
+	  min = typeof min === 'number' ? min : -Infinity;
+	  max = typeof max === 'number' ? max : Infinity;
 	  return value > min && value < max || !excludeEdge && (value === min || value === max);
 	};
 
