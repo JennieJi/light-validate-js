@@ -19,5 +19,5 @@ module.exports = function(value, hash = {}) {
 	let length = strVal.length;
 	min = min || 0;
 	max = max || Infinity;
-	return NumberRange(length, min, max, excludeEdge);
+	return NumberRange(length, {min, max, excludeEdge});
 };
