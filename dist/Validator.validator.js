@@ -174,7 +174,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var length = strVal.length;
 	  min = min || 0;
 	  max = max || Infinity;
-	  return (0, _numberRange2.default)(length, min, max, excludeEdge);
+	  return (0, _numberRange2.default)(length, { min: min, max: max, excludeEdge: excludeEdge });
 	}; /**
 	    * @requires Validator.validator.NumberRange
 	    */
