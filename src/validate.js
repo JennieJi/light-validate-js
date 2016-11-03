@@ -51,7 +51,7 @@ function validate(value, validators) {
 				[validator, ...parameters] = validatorConf;
 			} else {
 				validator = validatorConf.validator;
-				parameters = validatorConf.parameters;
+				parameters = validatorConf.parameters || [];
 				errorMessage = validatorConf.errorMessage;
 			}
 			if (typeof validator !== 'function') {
