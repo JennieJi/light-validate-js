@@ -75,14 +75,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/**
-	 * Validator
+	 * @module Validator.validator
+	 */
+	/**
+	 * Validator.validator
 	 * @author Jennie Ji - jennie.ji@hotmail.com
 	 */
 	module.exports = {
-		Regular: _regular2.default,
-		NumberRange: _numberRange2.default,
-		Length: _length2.default,
-		Email: _email2.default
+	  Regular: _regular2.default,
+	  NumberRange: _numberRange2.default,
+	  Length: _length2.default,
+	  Email: _email2.default
 	};
 
 /***/ },
@@ -91,34 +94,52 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	"use strict";
 
-	module.exports = function (value, _ref) {
-		var regular = _ref.regular;
+	/**
+	 * @method Regular
+	 * @param value {}
+	 * @param hash {object}
+	 * @prop hash.regular {RegExp}
+	 * @return {boolean}
+	 */
+	module.exports = function (value) {
+	  var hash = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	  var regular = hash.regular;
 
-		if (regular instanceof RegExp) {
-			regular.test(value);
-		}
-		return false;
+	  if (regular instanceof RegExp) {
+	    regular.test(value);
+	  }
+	  return false;
 	};
 
 /***/ },
 /* 2 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	/**
+	 * @member Validator.validator
+	 * @method NumberRange
+	 * @param value {}
+	 * @param hash {object}
+	 * @prop hash.min {number}
+	 * @prop hash.max {number}
+	 * @prop hash.excludeEdge {boolean}
+	 * @return {boolean}
+	 */
+	module.exports = function (value) {
+	  var hash = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-	module.exports = function (value, _ref) {
-		var min = _ref.min;
-		var max = _ref.max;
-		var excludeEdge = _ref.excludeEdge;
+	  if (typeof value !== 'number') {
+	    return false;
+	  }
+	  var min = hash.min;
+	  var max = hash.max;
+	  var excludeEdge = hash.excludeEdge;
 
-		if ((typeof value === "undefined" ? "undefined" : _typeof(value)) !== number) {
-			return false;
-		}
-		min = min || -Infinity;
-		max = max || Infinity;
-		return value > min && value < max && (excludeEdge || value === min || value === max);
+	  min = min || -Infinity;
+	  max = max || Infinity;
+	  return value > min && value < max || !excludeEdge && (value === min || value === max);
 	};
 
 /***/ },
@@ -127,25 +148,36 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 	var _numberRange = __webpack_require__(2);
 
 	var _numberRange2 = _interopRequireDefault(_numberRange);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	module.exports = function (value, _ref) {
-		var min = _ref.min;
-		var max = _ref.max;
-		var excludeEdge = _ref.excludeEdge;
+	/**
+	 * @member Validator.validator
+	 * @method Length
+	 * @param value {}
+	 * @param hash {object}
+	 * @prop hash.min {number}
+	 * @prop hash.max {number}
+	 * @prop hash.excludeEdge {boolean}
+	 * @return {boolean}
+	 */
+	module.exports = function (value) {
+	  var hash = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+	  var min = hash.min;
+	  var max = hash.max;
+	  var excludeEdge = hash.excludeEdge;
 
-		var strVal = !value && typeof value !== 'number' && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) !== boolean ? '' : value.toString();
-		var length = strVal.length;
-		min = min || 0;
-		max = max || Infinity;
-		return (0, _numberRange2.default)(length, min, max, excludeEdge);
-	};
+	  var strVal = !value && typeof value !== 'number' && typeof value !== 'boolean' ? '' : value.toString();
+	  var length = strVal.length;
+	  min = min || 0;
+	  max = max || Infinity;
+	  return (0, _numberRange2.default)(length, min, max, excludeEdge);
+	}; /**
+	    * @requires Validator.validator.NumberRange
+	    */
 
 /***/ },
 /* 4 */
@@ -159,9 +191,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	/**
+	 * @member Validator.validator
+	 * @method Email
+	 * @param value {}
+	 * @return {boolean}
+	 */
 	module.exports = function (value) {
-		return (0, _regular2.default)(value, /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|world|xxx|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i);
-	};
+	  return (0, _regular2.default)(value, /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|world|xxx|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i);
+	}; /**
+	    * @requires Validator.validator.Regular
+	    */
 
 /***/ }
 /******/ ])

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack",
     "test": "./node_modules/.bin/mocha test",
-    "docs": "./node_modules/.bin/jsdoc2md '*.js' > 'API.md'"
+    "docs": "./node_modules/.bin/jsdoc2md './src/*.js' > 'API.md'"
   },
   "keywords": [
     "Javascript",

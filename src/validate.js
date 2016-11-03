@@ -1,5 +1,5 @@
 /**
- * @module Validator.Validate
+ * Validator.Validate
  * @author Jennie Ji - jennie.ji@shopeemobile.com
  */
 
@@ -27,7 +27,7 @@
  */
 
 /**
- * @memberof Validator.validate
+ * @protected
  * @function
  * @param value 		{}
  * @param validators 	{Array.<Validator>}
@@ -83,7 +83,7 @@ function validate(value, validators) {
 }
 
 /**
- * @memberof Validator.validate
+ * @protected
  * @function
  * @param group 			 	{Object.<object>}
  * @param [exitOnceError=true] 	{boolean}
@@ -137,6 +137,11 @@ function groupValidate(group, exitOnceError = true) {
 	});
 }
 
+/**
+ * @module Validator.validate
+ * @borrows validate
+ * @borrows groupValidate
+ */
 module.exports = {
 	validate,
 	groupValidate

@@ -1,7 +1,7 @@
 module.exports = {
 	entry: {
-		validate: './validate.js',
-		validator: './validator.js'
+		validate: './src/validate.js',
+		validator: './src/validator.js'
 	},
 	output: {
 		path: __dirname + '/dist',

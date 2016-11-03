@@ -3,7 +3,7 @@ Validator.js
 ## API
 See [API document](./API.md)
 - validate
-- validators
+- validators: See [Validator document](./VALIDATORS.md)
 
 ## Development
 Install [nodeJs](https://nodejs.org) and run `$: npm install`.  

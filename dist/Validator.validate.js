@@ -63,7 +63,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); }
 
 	/**
-	 * Validate
+	 * Validator.Validate
 	 * @author Jennie Ji - jennie.ji@shopeemobile.com
 	 */
 
@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	/**
-	 * @public
+	 * @protected
 	 * @function
 	 * @param value 		{}
 	 * @param validators 	{Array.<Validator>}
@@ -157,7 +157,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 	/**
-	 * @public
+	 * @protected
 	 * @function
 	 * @param group 			 	{Object.<object>}
 	 * @param [exitOnceError=true] 	{boolean}
@@ -222,6 +222,11 @@ return /******/ (function(modules) { // webpackBootstrap
 		});
 	}
 
+	/**
+	 * @module Validator.validate
+	 * @borrows validate
+	 * @borrows groupValidate
+	 */
 	module.exports = {
 		validate: validate,
 		groupValidate: groupValidate

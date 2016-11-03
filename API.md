@@ -1,3 +1,12 @@
+## Modules
+
+<dl>
+<dt><a href="#Validator.module_validate">validate</a></dt>
+<dd></dd>
+<dt><a href="#Validator.module_validator">validator</a></dt>
+<dd></dd>
+</dl>
+
 ## Functions
 
 <dl>
@@ -21,11 +30,69 @@
 </dd>
 </dl>
 
+<a name="Validator.module_validate"></a>
+
+## validate
+
+* [validate](#Validator.module_validate)
+    * [.validate(value, validators)](#Validator.module_validate.validate) ⇒ <code>[ValidatePromise](#ValidatePromise)</code>
+    * [.groupValidate(group, [exitOnceError])](#Validator.module_validate.groupValidate) ⇒ <code>[ValidatePromise](#ValidatePromise)</code>
+
+<a name="Validator.module_validate.validate"></a>
+
+### validate.validate(value, validators) ⇒ <code>[ValidatePromise](#ValidatePromise)</code>
+**Kind**: static method of <code>[validate](#Validator.module_validate)</code>  
+**Access:** protected  
+
+| Param | Type |
+| --- | --- |
+| value |  | 
+| validators | <code>[Array.&lt;Validator&gt;](#Validator)</code> | 
+
+**Example**  
+```js
+validate('jennie.ji@shopeemobile.com', [
+	[length, {min: 0}],
+	[email]
+]);
+```
+<a name="Validator.module_validate.groupValidate"></a>
+
+### validate.groupValidate(group, [exitOnceError]) ⇒ <code>[ValidatePromise](#ValidatePromise)</code>
+**Kind**: static method of <code>[validate](#Validator.module_validate)</code>  
+**Access:** protected  
+
+| Param | Type | Default |
+| --- | --- | --- |
+| group | <code>Object.&lt;object&gt;</code> |  | 
+| [exitOnceError] | <code>boolean</code> | <code>true</code> | 
+
+**Example**  
+```js
+groupValidate({
+	name: {
+		value: 'Jennie',
+		validators: [
+			[length, {min: 3, max: 50}]
+		]
+	},
+	email: {
+		value: 'jennie.ji@shopeemobile.com',
+		validators: [
+			[length, {min: 0}],
+			[email]
+		]
+	}
+});
+```
+<a name="Validator.module_validator"></a>
+
+## validator
 <a name="validate"></a>
 
 ## validate(value, validators) ⇒ <code>[ValidatePromise](#ValidatePromise)</code>
 **Kind**: global function  
-**Access:** public  
+**Access:** protected  
 
 | Param | Type |
 | --- | --- |
@@ -43,7 +110,7 @@ validate('jennie.ji@shopeemobile.com', [
 
 ## groupValidate(group, [exitOnceError]) ⇒ <code>[ValidatePromise](#ValidatePromise)</code>
 **Kind**: global function  
-**Access:** public  
+**Access:** protected  
 
 | Param | Type | Default |
 | --- | --- | --- |
