@@ -3,6 +3,7 @@
  * @author Jennie Ji - jennie.ji@hotmail.com
  */
 import Regular from './validators/regular';
+import NumberValidator from './validators/number';
 import NumberRange from './validators/number-range';
 import Length from './validators/length';
 import Email from './validators/email';
@@ -12,6 +13,7 @@ import Email from './validators/email';
  */
 module.exports = {
 	Regular,
+	Number: NumberValidator,
 	NumberRange,
 	Length,
 	Email

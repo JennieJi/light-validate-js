@@ -1,4 +1,8 @@
 /**
+ * @requires Validator.validator.Number
+ */
+import NumberValidator from './number';
+/**
  * @member Validator.validator
  * @method NumberRange
  * @param value {}
@@ -9,9 +13,10 @@
  * @return {boolean}
  */
 module.exports = function(value, hash = {}) {
-	if (typeof value !== 'number') { return false; }
+	if (!NumberValidator(value)) { return false; }
 	let {min, max, excludeEdge} = hash;
-	min = typeof min === 'number' ? min : -Infinity;
-	max = typeof max === 'number' ? max : Infinity;
+	value = parseFloat(value, 10);
+	min = NumberValidator(min) ? parseFloat(min, 10) : -Infinity;
+	max = NumberValidator(max) ? parseFloat(max, 10) : Infinity;
 	return value > min && value < max || !excludeEdge &&  (value === min || value === max);
 };

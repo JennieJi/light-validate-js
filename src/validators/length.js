@@ -1,6 +1,8 @@
 /**
+ * @requires Validator.validator.Number
  * @requires Validator.validator.NumberRange
  */
+import NumberValidator from './number';
 import NumberRange from './number-range';
 
 /**
@@ -17,7 +19,7 @@ module.exports = function(value, hash = {}) {
 	let {min, max, excludeEdge} = hash;
 	let strVal = !value && typeof value !== 'number' && typeof value !== 'boolean' ? '' : value.toString();
 	let length = strVal.length;
-	min = min || 0;
-	max = max || Infinity;
+	min = NumberValidator(min) ? parseFloat(min, 10) : 0;
+	max = NumberValidator(max) ? parseFloat(max, 10) : Infinity;
 	return NumberRange(length, {min, max, excludeEdge});
 };

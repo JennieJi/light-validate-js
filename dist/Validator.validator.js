@@ -60,15 +60,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _regular2 = _interopRequireDefault(_regular);
 
-	var _numberRange = __webpack_require__(2);
+	var _number = __webpack_require__(2);
+
+	var _number2 = _interopRequireDefault(_number);
+
+	var _numberRange = __webpack_require__(3);
 
 	var _numberRange2 = _interopRequireDefault(_numberRange);
 
-	var _length = __webpack_require__(3);
+	var _length = __webpack_require__(4);
 
 	var _length2 = _interopRequireDefault(_length);
 
-	var _email = __webpack_require__(4);
+	var _email = __webpack_require__(5);
 
 	var _email2 = _interopRequireDefault(_email);
 
@@ -77,16 +81,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * @module Validator.validator
 	 */
-	/**
-	 * Validator.validator
-	 * @author Jennie Ji - jennie.ji@hotmail.com
-	 */
 	module.exports = {
 	  Regular: _regular2.default,
+	  Number: _number2.default,
 	  NumberRange: _numberRange2.default,
 	  Length: _length2.default,
 	  Email: _email2.default
-	};
+	}; /**
+	    * Validator.validator
+	    * @author Jennie Ji - jennie.ji@hotmail.com
+	    */
 
 /***/ },
 /* 1 */
@@ -119,6 +123,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	/**
 	 * @member Validator.validator
+	 * @method Number
+	 * @param value {}
+	 * @return {boolean}
+	 */
+	module.exports = function (value) {
+	  return value !== null && (isFinite(value) || typeof value === 'number' && !isNaN(value));
+	};
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _number = __webpack_require__(2);
+
+	var _number2 = _interopRequireDefault(_number);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * @member Validator.validator
 	 * @method NumberRange
 	 * @param value {}
 	 * @param hash {object}
@@ -130,25 +156,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = function (value) {
 	  var hash = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-	  if (typeof value !== 'number') {
+	  if (!(0, _number2.default)(value)) {
 	    return false;
 	  }
 	  var min = hash.min;
 	  var max = hash.max;
 	  var excludeEdge = hash.excludeEdge;
 
-	  min = typeof min === 'number' ? min : -Infinity;
-	  max = typeof max === 'number' ? max : Infinity;
+	  value = parseFloat(value, 10);
+	  min = (0, _number2.default)(min) ? parseFloat(min, 10) : -Infinity;
+	  max = (0, _number2.default)(max) ? parseFloat(max, 10) : Infinity;
 	  return value > min && value < max || !excludeEdge && (value === min || value === max);
-	};
+	}; /**
+	    * @requires Validator.validator.Number
+	    */
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _numberRange = __webpack_require__(2);
+	var _number = __webpack_require__(2);
+
+	var _number2 = _interopRequireDefault(_number);
+
+	var _numberRange = __webpack_require__(3);
 
 	var _numberRange2 = _interopRequireDefault(_numberRange);
 
@@ -164,6 +197,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @prop hash.excludeEdge {boolean}
 	 * @return {boolean}
 	 */
+	/**
+	 * @requires Validator.validator.Number
+	 * @requires Validator.validator.NumberRange
+	 */
 	module.exports = function (value) {
 	  var hash = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 	  var min = hash.min;
@@ -172,15 +209,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var strVal = !value && typeof value !== 'number' && typeof value !== 'boolean' ? '' : value.toString();
 	  var length = strVal.length;
-	  min = min || 0;
-	  max = max || Infinity;
+	  min = (0, _number2.default)(min) ? parseFloat(min, 10) : 0;
+	  max = (0, _number2.default)(max) ? parseFloat(max, 10) : Infinity;
 	  return (0, _numberRange2.default)(length, { min: min, max: max, excludeEdge: excludeEdge });
-	}; /**
-	    * @requires Validator.validator.NumberRange
-	    */
+	};
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
