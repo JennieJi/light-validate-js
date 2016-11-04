@@ -90,6 +90,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @prop ValidatePromise.catch {funciton} Invalid. Parameter: errors - can be normal exceptions, or single/array of {@link ValidateError}
 	 */
 
+	var promiseProxy = Promise;
+
 	/**
 	 * @protected
 	 * @function
@@ -125,7 +127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				if (typeof validator !== 'function') {
 					throw 'Validator "' + validator + '" must be a function!';
 				} else {
-					var promise = Promise.resolve(validator.apply(undefined, [value].concat(_toConsumableArray(parameters))));
+					var promise = promiseProxy.resolve(validator.apply(undefined, [value].concat(_toConsumableArray(parameters))));
 					validatePromises.push(promise.then(function (result) {
 						if (result) {
 							return true;
@@ -146,7 +148,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			for (var i = 0; i < validatorsLen; i++) {
 				_loop(i);
 			}
-			return Promise.all(validatePromises).then(function () {
+			return promiseProxy.all(validatePromises).then(function () {
 				return true;
 			}).catch(function (err) {
 				throw err;
@@ -209,7 +211,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		for (var name in group) {
 			_loop2(name);
 		}
-		return Promise.all(validatePromises).then(function (result) {
+		return promiseProxy.all(validatePromises).then(function (result) {
 			if (!exitOnceError) {
 				var errors = result.filter(function (res) {
 					return res !== true;
@@ -228,6 +230,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @borrows groupValidate
 	 */
 	module.exports = {
+		Promise: promiseProxy,
 		validate: validate,
 		groupValidate: groupValidate
 	};

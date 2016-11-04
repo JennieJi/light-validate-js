@@ -128,6 +128,21 @@ describe('Single Validate', function() {
 			it('Multiple validator includes 2 kinds of error responses', assertInvalid(validate(testValue, asyncInvalidGroup)));
 			it('Multiple validator includes 2 kinds of error responses', assertInvalid(validate(testValue, [[asyncValid], [asyncCatch], [asyncInvalid]])));
 		});
+		describe('Change Promise', function() {
+			it('Change to invalid Promise, throw error', function() {
+				ValidateModule.Promise = void 0;
+				try {
+					validate(testValue, [[asyncValid]]);
+					throw '';
+				} catch (err) {
+
+				}
+			});
+			it('Change to valid Promise, works', function(done) {
+				ValidateModule.Promise = Promise;
+				assertValid(validate(testValue, [[asyncValid]]))(done);
+			});
+		});
 	});
 });
 

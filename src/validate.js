@@ -26,6 +26,8 @@
  * @prop ValidatePromise.catch {funciton} Invalid. Parameter: errors - can be normal exceptions, or single/array of {@link ValidateError}
  */
 
+let promiseProxy = Promise;
+
 /**
  * @protected
  * @function
@@ -57,7 +59,7 @@ function validate(value, validators) {
 			if (typeof validator !== 'function') {
 				throw `Validator "${validator}" must be a function!`;
 			} else {
-				let promise = Promise.resolve(validator(value, ...parameters));
+				let promise = promiseProxy.resolve(validator(value, ...parameters));
 				validatePromises.push(promise.then(result => {
 					if (result) {
 						return true;
@@ -74,7 +76,7 @@ function validate(value, validators) {
 				}));
 			}
 		}
-		return Promise.all(validatePromises).then(() => true).catch(err => {
+		return promiseProxy.all(validatePromises).then(() => true).catch(err => {
 			throw err;
 		});
 	} else {
@@ -126,7 +128,7 @@ function groupValidate(group, exitOnceError = true) {
 			}
 		}));
 	}
-	return Promise.all(validatePromises).then(result => {
+	return promiseProxy.all(validatePromises).then(result => {
 		if (!exitOnceError) {
 			let errors = result.filter(res => res !== true);
 			if (errors.length) {
@@ -143,6 +145,7 @@ function groupValidate(group, exitOnceError = true) {
  * @borrows groupValidate
  */
 module.exports = {
+	Promise: promiseProxy,
 	validate,
 	groupValidate
 };
