@@ -37,6 +37,7 @@ var asyncCatch = function() {
 };
 var asyncValidGroup = [[asyncValid], [asyncValid], [asyncValid]],
 	asyncInvalidGroup = [[asyncValid], [asyncInvalid], [asyncCatch]];
+	asyncInvalidGroup2 = [[asyncValid], [asyncCatch], [asyncCatch]];
 
 var assertValid = function(validatePromise) {
 	return function(done) {
@@ -60,10 +61,14 @@ var assertInvalid = function(validatePromise) {
 		validatePromise.then(function(result) {
 			done(result);
 		}).catch(result => {
-			if (result.validator) {
-				assertInvalidError(result);
+			try {
+				if (result.validator) {
+					assertInvalidError(result);
+				}
+				done();
+			} catch (err) {
+				done(err);
 			}
-			done();
 		});
 	};
 };
@@ -72,15 +77,18 @@ var assertGroupInvalid = function(validatePromise, errorFields) {
 		validatePromise.then(function(result) {
 			done(result);
 		}).catch(result => {
-			if (Array.isArray(result) && result[0].validator) {
-				assert.equal(result.length, errorFields.length);
-				result.forEach(function(err) {
-					assert.ok(err.name);
-					assert.ok(errorFields.includes(err.name));
-					assertInvalidError(err);
-				});
+			try {
+				assert.ok(result.length === errorFields.length);
+				if(result[0].validator) {
+					result.forEach(function(err) {
+						assert.ok(err.name && errorFields.includes(err.name));
+						assertInvalidError(err);
+					});
+				}
+				done();
+			} catch (err) {
+				done(JSON.stringify(result));
 			}
-			done();
 		});
 	};
 };
@@ -163,7 +171,7 @@ describe('Group Validate', function() {
 				field3: {value: testValue, validators: invalidGroup}
 			};
 			it('Exit once error', assertGroupInvalid(groupValidate(group), ['field2']));
-			it('Wait for all', assertGroupInvalid(groupValidate(group), ['field2', 'field3']));
+			it('Wait for all', assertGroupInvalid(groupValidate(group, false), ['field2', 'field3']));
 		});
 	});
 
@@ -172,14 +180,23 @@ describe('Group Validate', function() {
 			field1: {value: testValue, validators: validGroup},
 			field2: {value: testValue, validators: asyncValidGroup}
 		})));
-		describe('Invalid', function() {
+		describe('Normal invalid', function() {
 			var group = {
 				field1: {value: testValue, validators: validGroup},
 				field2: {value: testValue, validators: asyncInvalidGroup},
 				field3: {value: testValue, validators: invalidGroup}
 			};
 			it('Exit once error', assertGroupInvalid(groupValidate(group), ['field2']));
-			it('Wait for all', assertGroupInvalid(groupValidate(group), ['field2', 'field3']));
+			it('Wait for all', assertGroupInvalid(groupValidate(group, false), ['field2', 'field3']));
+		});
+		describe('Normal with catch', function() {
+			var group2 = {
+				field1: {value: testValue, validators: validGroup},
+				field2: {value: testValue, validators: asyncInvalidGroup2},
+				field3: {value: testValue, validators: invalidGroup}
+			};
+			it('Exit once error', assertGroupInvalid(groupValidate(group2), ['field2']));
+			it('Wait for all', assertGroupInvalid(groupValidate(group2, false), ['field2', 'field3']));
 		});
 	});
 });

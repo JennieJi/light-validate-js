@@ -122,18 +122,16 @@ function groupValidate(group, exitOnceError = true) {
 		validatePromises.push(validatePromise.catch(err => {
 			err.name = name;
 			if (exitOnceError) {
-				throw err;
+				throw [err];
 			} else {
-				return error;
+				return err;
 			}
 		}));
 	}
 	return promiseProxy.all(validatePromises).then(result => {
-		if (!exitOnceError) {
-			let errors = result.filter(res => res !== true);
-			if (errors.length) {
-				throw errors;
-			}
+		let errors = result.filter(res => res !== true);
+		if (errors.length) {
+			throw errors;
 		}
 		return true;
 	});

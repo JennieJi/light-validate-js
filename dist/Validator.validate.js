@@ -201,9 +201,9 @@ return /******/ (function(modules) { // webpackBootstrap
 			validatePromises.push(validatePromise.catch(function (err) {
 				err.name = name;
 				if (exitOnceError) {
-					throw err;
+					throw [err];
 				} else {
-					return error;
+					return err;
 				}
 			}));
 		};
@@ -212,13 +212,11 @@ return /******/ (function(modules) { // webpackBootstrap
 			_loop2(name);
 		}
 		return promiseProxy.all(validatePromises).then(function (result) {
-			if (!exitOnceError) {
-				var errors = result.filter(function (res) {
-					return res !== true;
-				});
-				if (errors.length) {
-					throw errors;
-				}
+			var errors = result.filter(function (res) {
+				return res !== true;
+			});
+			if (errors.length) {
+				throw errors;
 			}
 			return true;
 		});
