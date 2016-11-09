@@ -1,7 +1,7 @@
 {
   "name": "validator",
   "version": "0.0.1-beta.1",
-  "description": "Javascript Validator",
+  "description": "Light weight, flexible JS validate helpers, support async, group validation",
   "main": "validator.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack",

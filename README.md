@@ -1,5 +1,7 @@
 Validator.js
 ====
+Light weight, flexible JS validate helpers, support async, group validation
+
 ## API
 See [API document](./API.md)
 - validate
