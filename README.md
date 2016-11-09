@@ -2,6 +2,8 @@ Light Validate JS
 ====
 Light weight, flexible JS validate helpers, support async, group validation
 
+`npm install light-validate-js`
+
 ## API
 See [API document](./API.md)
 - validate

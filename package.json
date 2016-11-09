@@ -1,5 +1,5 @@
 {
-  "name": "light-validator-js",
+  "name": "light-validate-js",
   "version": "0.0.1-beta.1",
   "description": "Light weight, flexible JS validate helpers, support async, group validation",
   "main": "src/validate.js",
@@ -24,6 +24,7 @@
     "type": "git",
     "url": "https://github.com/JennieJi/light-validate-js.git"
   },
+  "readme": "README.md",
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-core": "^6.17.0",
