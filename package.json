@@ -1,8 +1,8 @@
 {
-  "name": "validator",
+  "name": "light-validator-js",
   "version": "0.0.1-beta.1",
   "description": "Light weight, flexible JS validate helpers, support async, group validation",
-  "main": "validator.js",
+  "main": "src/validate.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack",
     "test": "./node_modules/.bin/mocha test",
@@ -15,8 +15,15 @@
     "Validator",
     "Shopee"
   ],
-  "author": "Jennie Ji",
+  "author": {
+    "name": "Jennie Ji",
+    "email": "jennie.ji@hotmail.com"
+  },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JennieJi/light-validate-js.git"
+  },
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-core": "^6.17.0",

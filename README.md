@@ -1,4 +1,4 @@
-Validator.js
+Light Validate JS
 ====
 Light weight, flexible JS validate helpers, support async, group validation
 
