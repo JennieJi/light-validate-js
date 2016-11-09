@@ -17,8 +17,10 @@ import NumberRange from './number-range';
  */
 module.exports = function(value, hash = {}) {
 	let {min, max, excludeEdge} = hash;
-	let strVal = !value && typeof value !== 'number' && typeof value !== 'boolean' ? '' : value.toString();
-	let length = strVal.length;
+  if (!value && typeof value !== 'number' && typeof value !== 'boolean') {
+	 value = '';
+  }
+	let length = value.length || value.toString().length;
 	min = NumberValidator(min) ? parseFloat(min, 10) : 0;
 	max = NumberValidator(max) ? parseFloat(max, 10) : Infinity;
 	return NumberRange(length, {min, max, excludeEdge});

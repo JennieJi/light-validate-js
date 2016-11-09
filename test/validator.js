@@ -113,17 +113,107 @@ describe('Validator - number range', function() {
 });
 
 describe('Validator - length', function() {
-	let {Length} = Validators;
+	var Length = Validators.Length;
 	describe('Without options', function() {
+    it('empty string', function() {
+      assert.ok(Length(''));
+    });
+    it('number', function() {
+      assert.ok(Length(123));
+    });
+    it('undefined', function() {
+      assert.ok(Length(void 0));
+    });
+    it('boolean false', function() {
+      assert.ok(Length(false));
+    });
+    it('boolean true', function() {
+      assert.ok(Length(true));
+    });
+    it('empty array', function() {
+      assert.ok(Length([]));
+    });
+    it('non-empty array', function() {
+      assert.ok(Length([1,2,3]));
+    });
 	});
-	describe('Set min', function() {
-
+	describe('Set min 3', function() {
+    var options = {min: 3};
+    it('empty string', function() {
+      assert.equal(Length('', options), false);
+    });
+    it('number 123', function() {
+      assert.ok(Length(123, options));
+    });
+    it('undefined', function() {
+      assert.equal(Length(void 0, options), false);
+    });
+    it('boolean false', function() {
+      assert.ok(Length(false, options));
+    });
+    it('boolean true', function() {
+      assert.ok(Length(true, options));
+    });
+    it('empty array', function() {
+      assert.equal(Length([], options), false);
+    });
+    it('non-empty array [1,2,3]', function() {
+      assert.ok(Length([1,2,3], options));
+    });
 	});
-	describe('Set max', function() {
-
+	describe('Set max 3', function() {
+    var options = {max: 3};
+    it('empty string', function() {
+      assert.ok(Length('', options));
+    });
+    it('number 123', function() {
+      assert.ok(Length(123, options));
+    });
+    it('number 1234', function() {
+      assert.equal(Length(1234, options), false);
+    });
+    it('undefined', function() {
+      assert.ok(Length(void 0, options));
+    });
+    it('boolean false', function() {
+      assert.equal(Length(false, options), false);
+    });
+    it('boolean true', function() {
+      assert.equal(Length(true, options), false);
+    });
+    it('empty array', function() {
+      assert.ok(Length([], options));
+    });
+    it('non-empty array [1,2,3]', function() {
+      assert.ok(Length([1,2,3], options));
+    });
 	});
-	describe('set excludeEdge', function() {
-
+	describe('set excludeEdge true, min 3, max 4', function() {
+    var options = {min: 2, max: 4, excludeEdge: true};
+    it('empty string', function() {
+      assert.equal(Length('', options), false);
+    });
+    it('number 123', function() {
+      assert.ok(Length(123, options));
+    });
+    it('number 1234', function() {
+      assert.equal(Length(1234, options), false);
+    });
+    it('undefined', function() {
+      assert.equal(Length(void 0, options), false);
+    });
+    it('boolean false', function() {
+      assert.equal(Length(false, options), false);
+    });
+    it('boolean true', function() {
+      assert.equal(Length(true, options), false);
+    });
+    it('empty array', function() {
+      assert.equal(Length([], options), false);
+    });
+    it('non-empty array [1,2,3]', function() {
+      assert.ok(Length([1,2,3], options));
+    });
 	});
 });
 
