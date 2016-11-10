@@ -13,6 +13,9 @@
     "Validation",
     "Validate",
     "Validator",
+    "Form",
+    "ES6",
+    "async",
     "Shopee"
   ],
   "author": {
@@ -24,7 +27,6 @@
     "type": "git",
     "url": "https://github.com/JennieJi/light-validate-js.git"
   },
-  "readme": "README.md",
   "devDependencies": {
     "babel-cli": "^6.10.1",
     "babel-core": "^6.17.0",
