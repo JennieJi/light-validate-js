@@ -34,7 +34,7 @@ var validatePromise = Validator.validate.validate(fieldValue, [
         errorMessage: 'This is error message!'
     },
 
-    // validate fail and return error message directly, added since 0.0.2
+    // validate fail and return error message directly
     [function() {
         return 'This is error message!';
     }],
