@@ -8,6 +8,7 @@ var errorMessage = 'test error'
 
 var valid = function() { return true; };
 var invalid = function () { return false; };
+var invalidWithErrorMessage = function () { return errorMessage; }
 var validatorWithParam = function(value, isValid) { return isValid; };
 var validGroup = [
 		[valid], 
@@ -18,6 +19,11 @@ var validGroup = [
 		[valid], 
 		[invalid], 
 		[validatorWithParam, false]
+	],
+	invalidGroupReturnErrorMessage = [
+		[valid],
+		[invalidWithErrorMessage],
+		[invalid]
 	];
 
 var asyncValid = function() {
@@ -55,6 +61,9 @@ var assertInvalidError = function(result) {
 	assert.ok(Array.isArray(result.parameters));
 	assert.ok(keys.includes('error'));
 	assert.ok(keys.includes('errorMessage'));
+	if (result.errorMessage) {
+		assert.equal(result.errorMessage, errorMessage);
+	}
 };
 var assertInvalid = function(validatePromise) {
 	return function(done) {
@@ -118,8 +127,10 @@ describe('Single Validate', function() {
 				parameters: [false],
 				errorMessage
 			}])));
+			it('1 validator return error message directly', assertInvalid(validate(testValue, [[invalidWithErrorMessage]])));
 			it('Multiple validator without param', assertInvalid(validate(testValue, [[valid], [invalid], [valid]])));
 			it('Multiple validator with param', assertInvalid(validate(testValue, invalidGroup)));
+			it('Multiple validators which return error message directly by validator', assertInvalid(validate(testValue, invalidGroupReturnErrorMessage)));
 		});
 	});
 

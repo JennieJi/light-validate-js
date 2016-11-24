@@ -6,9 +6,9 @@
 /**
  * Validator
  * @typedef Validator {object|Array.<function|object>}	If it is array, first parameter is the validator function, following by parameters
- * @prop Validator.validator {function}
- * @prop Validator.parameters {Array}
- * @prop Validator.errorMessage {string}
+ * @prop Validator.validator {function} Validator function will always take validate value as 1st parameter. If it return true or promise resolve as true, means validate pass. If it return string or promise resolve as string, result will be treated as error message. All the other results will be passed to {@link ValidateError.error}.
+ * @prop Validator.parameters {Array} Optional. Extra parameters for {@link Validator.validator}. 
+ * @prop Validator.errorMessage {string} Optional. Expected to be deprecated someday, since it's not as flexible as return error message by validator function directly (this is added in 0.0.2).
  */
 /**
  * ValidateError
@@ -61,11 +61,14 @@ function validate(value, validators) {
 			} else {
 				let promise = promiseProxy.resolve(validator(value, ...parameters));
 				validatePromises.push(promise.then(result => {
-					if (result) {
+					if (result === true) {
 						return true;
 					}
+					if (typeof result === 'string') {
+						errorMessage = result;
+					}
 					// to deal with this in catch
-					throw '';
+					throw result;
 				}).catch(error => {
 					throw {
 						validator,

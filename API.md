@@ -143,11 +143,11 @@ Validator
 **Kind**: global typedef  
 **Properties**
 
-| Name | Type |
-| --- | --- |
-| Validator.validator | <code>function</code> | 
-| Validator.parameters | <code>Array</code> | 
-| Validator.errorMessage | <code>string</code> | 
+| Name | Type | Description |
+| --- | --- | --- |
+| Validator.validator | <code>function</code> | Validator function will always take validate value as 1st parameter. If it return true or promise resolve as true, means validate pass. If it return string or promise resolve as string, result will be treated as error message. All the other results will be passed to [ValidateError.error](ValidateError.error). |
+| Validator.parameters | <code>Array</code> | Optional. Extra parameters for [Validator.validator](Validator.validator). |
+| Validator.errorMessage | <code>string</code> | Optional. Expected to be deprecated someday, since it's not as flexible as return error message by validator function directly (this is added in 0.0.2). |
 
 <a name="ValidateError"></a>
 

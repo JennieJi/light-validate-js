@@ -159,9 +159,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (!(0, _number2.default)(value)) {
 	    return false;
 	  }
-	  var min = hash.min,
-	      max = hash.max,
-	      excludeEdge = hash.excludeEdge;
+	  var min = hash.min;
+	  var max = hash.max;
+	  var excludeEdge = hash.excludeEdge;
 
 	  value = parseFloat(value, 10);
 	  min = (0, _number2.default)(min) ? parseFloat(min, 10) : -Infinity;
@@ -203,9 +203,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	module.exports = function (value) {
 	  var hash = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-	  var min = hash.min,
-	      max = hash.max,
-	      excludeEdge = hash.excludeEdge;
+	  var min = hash.min;
+	  var max = hash.max;
+	  var excludeEdge = hash.excludeEdge;
 
 	  if (!value && typeof value !== 'number' && typeof value !== 'boolean') {
 	    value = '';
