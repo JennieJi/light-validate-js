@@ -1,5 +1,8 @@
 Light Validate JS
 ====
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/JennieJi/light-validate-js.svg)](https://greenkeeper.io/)
+
 Light weight, flexible JS validate helpers, support async, group validation.    
 My goal of this repo is to avoid binding of error message & DOM elements and validations, which would be more flexible to be used everywhere.    
 
