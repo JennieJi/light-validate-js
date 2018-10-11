@@ -3,13 +3,13 @@ Light Validate JS
 Light weight, flexible JS validate helpers, support async, group validation.    
 My goal of this repo is to avoid binding of error message & DOM elements and validations, which would be more flexible to be used everywhere.    
 
-## Get Started
+## Get Start
 `npm install light-validate-js`     
 
 RSVP setting:    
 ```Javascript
 Validator.validate.Promise = Promise;
-```
+```//hats off
 
 Single field validate:    
 ```Javascript
@@ -68,7 +68,7 @@ validatePromise.then(function() {
 });
 ```
     
-Group validate:
+Group vaidate:
 ```Javascript
 var validatePromise = Validator.validate.groupValidate({
     username: {
