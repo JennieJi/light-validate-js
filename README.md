@@ -10,7 +10,7 @@ RSVP setting:
 ```Javascript
 Validator.validate.Promise = Promise;
 ```
-
+//hearty welcome 
 Single field validate:    
 ```Javascript
 /**
