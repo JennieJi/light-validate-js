@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -197,8 +197,8 @@ return /******/ (function(modules) { // webpackBootstrap
 			if ((typeof field === 'undefined' ? 'undefined' : _typeof(field)) !== 'object') {
 				throw 'Validate group item should be an object!';
 			}
-			var value = field.value;
-			var validators = field.validators;
+			var value = field.value,
+			    validators = field.validators;
 
 			var validatePromise = validate(value, validators);
 			validatePromises.push(validatePromise.catch(function (err) {
@@ -236,7 +236,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		groupValidate: groupValidate
 	};
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

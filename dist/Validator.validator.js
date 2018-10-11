@@ -52,7 +52,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -92,9 +92,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    * @author Jennie Ji - jennie.ji@hotmail.com
 	    */
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -115,9 +115,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return false;
 	};
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 
@@ -131,9 +131,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return value !== null && (isFinite(value) || typeof value === 'number' && !isNaN(value));
 	};
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -159,9 +159,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (!(0, _number2.default)(value)) {
 	    return false;
 	  }
-	  var min = hash.min;
-	  var max = hash.max;
-	  var excludeEdge = hash.excludeEdge;
+	  var min = hash.min,
+	      max = hash.max,
+	      excludeEdge = hash.excludeEdge;
 
 	  value = parseFloat(value, 10);
 	  min = (0, _number2.default)(min) ? parseFloat(min, 10) : -Infinity;
@@ -171,9 +171,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    * @requires Validator.validator.Number
 	    */
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -203,9 +203,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	module.exports = function (value) {
 	  var hash = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-	  var min = hash.min;
-	  var max = hash.max;
-	  var excludeEdge = hash.excludeEdge;
+	  var min = hash.min,
+	      max = hash.max,
+	      excludeEdge = hash.excludeEdge;
 
 	  if (!value && typeof value !== 'number' && typeof value !== 'boolean') {
 	    value = '';
@@ -216,9 +216,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return (0, _numberRange2.default)(length, { min: min, max: max, excludeEdge: excludeEdge });
 	};
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -242,7 +242,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    * @requires Validator.validator.Regular
 	    */
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

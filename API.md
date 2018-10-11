@@ -35,19 +35,19 @@
 ## validate
 
 * [validate](#Validator.module_validate)
-    * [.validate(value, validators)](#Validator.module_validate.validate) ⇒ <code>[ValidatePromise](#ValidatePromise)</code>
-    * [.groupValidate(group, [exitOnceError])](#Validator.module_validate.groupValidate) ⇒ <code>[ValidatePromise](#ValidatePromise)</code>
+    * [.validate(value, validators)](#Validator.module_validate.validate) ⇒ [<code>ValidatePromise</code>](#ValidatePromise)
+    * [.groupValidate(group, [exitOnceError])](#Validator.module_validate.groupValidate) ⇒ [<code>ValidatePromise</code>](#ValidatePromise)
 
 <a name="Validator.module_validate.validate"></a>
 
-### validate.validate(value, validators) ⇒ <code>[ValidatePromise](#ValidatePromise)</code>
-**Kind**: static method of <code>[validate](#Validator.module_validate)</code>  
-**Access:** protected  
+### validate.validate(value, validators) ⇒ [<code>ValidatePromise</code>](#ValidatePromise)
+**Kind**: static method of [<code>validate</code>](#Validator.module_validate)  
+**Access**: protected  
 
 | Param | Type |
 | --- | --- |
 | value |  | 
-| validators | <code>[Array.&lt;Validator&gt;](#Validator)</code> | 
+| validators | [<code>Array.&lt;Validator&gt;</code>](#Validator) | 
 
 **Example**  
 ```js
@@ -58,9 +58,9 @@ validate('jennie.ji@shopeemobile.com', [
 ```
 <a name="Validator.module_validate.groupValidate"></a>
 
-### validate.groupValidate(group, [exitOnceError]) ⇒ <code>[ValidatePromise](#ValidatePromise)</code>
-**Kind**: static method of <code>[validate](#Validator.module_validate)</code>  
-**Access:** protected  
+### validate.groupValidate(group, [exitOnceError]) ⇒ [<code>ValidatePromise</code>](#ValidatePromise)
+**Kind**: static method of [<code>validate</code>](#Validator.module_validate)  
+**Access**: protected  
 
 | Param | Type | Default |
 | --- | --- | --- |
@@ -90,14 +90,14 @@ groupValidate({
 ## validator
 <a name="validate"></a>
 
-## validate(value, validators) ⇒ <code>[ValidatePromise](#ValidatePromise)</code>
+## validate(value, validators) ⇒ [<code>ValidatePromise</code>](#ValidatePromise)
 **Kind**: global function  
-**Access:** protected  
+**Access**: protected  
 
 | Param | Type |
 | --- | --- |
 | value |  | 
-| validators | <code>[Array.&lt;Validator&gt;](#Validator)</code> | 
+| validators | [<code>Array.&lt;Validator&gt;</code>](#Validator) | 
 
 **Example**  
 ```js
@@ -108,9 +108,9 @@ validate('jennie.ji@shopeemobile.com', [
 ```
 <a name="groupValidate"></a>
 
-## groupValidate(group, [exitOnceError]) ⇒ <code>[ValidatePromise](#ValidatePromise)</code>
+## groupValidate(group, [exitOnceError]) ⇒ [<code>ValidatePromise</code>](#ValidatePromise)
 **Kind**: global function  
-**Access:** protected  
+**Access**: protected  
 
 | Param | Type | Default |
 | --- | --- | --- |
@@ -137,7 +137,7 @@ groupValidate({
 ```
 <a name="Validator"></a>
 
-## Validator : <code>object</code> &#124; <code>Array.&lt;(function()\|object)&gt;</code>
+## Validator : <code>object</code> \| <code>Array.&lt;(function()\|object)&gt;</code>
 Validator
 
 **Kind**: global typedef  
