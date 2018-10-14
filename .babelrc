@@ -1,0 +1,32 @@
+{
+  "ignore": [
+    "node_modules/**"
+  ],
+  "env": {
+    "production": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "browsers": ["last 2 versions", "safari >= 7"]
+            },
+            "modules": false
+          }
+        ]
+      ]
+    },
+    "testing": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "browsers": ["last 2 versions", "safari >= 7"]
+            }
+          }
+        ]
+      ]
+    }
+  }
+}
