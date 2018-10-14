@@ -1,24 +1,23 @@
+const path = require('path');
+
 module.exports = {
-	entry: {
-		validate: './src/validate.js',
-		validator: './src/validator.js'
-	},
-	output: {
-		path: __dirname + '/dist',
-		filename: 'Validator.[name].js',
-		library: ['Validator', '[name]'],
-		libraryTarget: 'umd'
-	},
-	module: {
-		loaders: [
-			{
-		      test: /\.js$/,
-		      exclude: /(node_modules|bower_components)/,
-		      loader: 'babel', // 'babel-loader' is also a valid name to reference
-		      query: {
-		        presets: ['es2015']
-		      }
-		    }
-		]
-	}	
+  entry: {
+    Validator: './src/index.js',
+  },
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
+    libraryTarget: 'umd',
+    // See https://github.com/webpack/webpack/issues/6522
+    globalObject: 'typeof self !== \'undefined\' ? self : this'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: 'babel-loader'
+      }
+    ]
+  }
 };
