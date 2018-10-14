@@ -1,8 +1,9 @@
-Light Validate JS
-====
-
-[![Greenkeeper badge](https://badges.greenkeeper.io/JennieJi/light-validate-js.svg)](https://greenkeeper.io/)
 [![npm version](https://badge.fury.io/js/light-validate-js.svg)](https://badge.fury.io/js/light-validate-js)
+[![Build Status](https://travis-ci.org/JennieJi/lazy-jest.svg?branch=master)](https://travis-ci.org/JennieJi/lazy-jest)
+[![codecov](https://codecov.io/gh/JennieJi/lazy-jest/branch/master/graph/badge.svg)](https://codecov.io/gh/JennieJi/lazy-jest)
+[![Greenkeeper badge](https://badges.greenkeeper.io/JennieJi/light-validate-js.svg)](https://greenkeeper.io/)
+
+# Light Validate JS
 
 This package provides light weight flexible JS validate helpers, supports async and group validation.
 
