@@ -1,20 +1,37 @@
-Light Validate JS
-====
-Light weight, flexible JS validate helpers, support async, group validation.    
-My goal of this repo is to avoid binding of error message & DOM elements and validations, which would be more flexible to be used everywhere.    
+[![npm version](https://badge.fury.io/js/light-validate-js.svg)](https://badge.fury.io/js/light-validate-js)
 
-## Get Started
-`npm install light-validate-js`     
+# Light Validate JS
 
-RSVP setting:    
-```Javascript
+This package provides light weight flexible JS validate helpers, supports async and group validation.
+
+My goal for this repo is to avoid the binding of error messages & DOM elements and validations which would be more flexible to be used everywhere.
+
+## Installation
+
+**Light Validate JS** module is available on the [npm registry](https://www.npmjs.com/package/light-validate-js) and can be installed using the
+
+```bash
+npm install light-validate-js
+```
+
+## Example usage
+
+- RSVP setting:
+
+```javascript
 Validator.validate.Promise = Promise;
 ```
 
-Single field validate:    
+- To validate a single field
+
 ```Javascript
 /**
- * 1st parameter is the value you want to validate, 2nd parameter is validators, which will do validate one by one in the order you give and stop at the one failed. 
+ * 1st parameter is the value you want to validate,
+ * 2nd parameter is the validator, which will carry
+ * out the validations one by one basing on the
+ * given order.
+ *
+ * It stops once one of the validations fail
  */
 var validatePromise = Validator.validate.validate(fieldValue, [
 
@@ -45,19 +62,19 @@ var validatePromise = Validator.validate.validate(fieldValue, [
         parameters: [param1]
     },
 
-    // Async valdiate success
+    // Async validate success
     [function() {
-        return Promise.resolve(true);    
+        return Promise.resolve(true);
     }],
-    // Async valdiate fail
+    // Async validate fail
     [function() {
-        return Promise.resolve(false);    
-    }],
-    [function() {
-        return Promise.resolve('This is error message!');    
+        return Promise.resolve(false);
     }],
     [function() {
-        return Promise.reject('This is error message!');    
+        return Promise.resolve('This is error message!');
+    }],
+    [function() {
+        return Promise.reject('This is error message!');
     }]
 ]);
 
@@ -67,8 +84,9 @@ validatePromise.then(function() {
     alert(error.errorMessage);
 });
 ```
-    
-Group validate:
+
+- To validate multiple fields
+
 ```Javascript
 var validatePromise = Validator.validate.groupValidate({
     username: {
@@ -98,13 +116,16 @@ validatePromise.then(function() {
 });
 ```
 
+## Development Setup
+
+- download and install [NodeJS](https://nodejs.org/en/download/)
+- run `npm install`
+- run the tests using `npm test`
+- regenerate document: `npm run docs`
+
 ## API
+
 See [API document](./API.md)
+
 - validate
 - validators: See [Validator document](./VALIDATORS.md)
-
-## Development
-Install [nodeJs](https://nodejs.org) and run `$: npm install`.  
-Build to _/disc_: `$: npm run build`   
-Run unit testing: `$: npm test`    
-Regenerate document: `$: npm run docs`
