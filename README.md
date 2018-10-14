@@ -1,6 +1,8 @@
-[![npm version](https://badge.fury.io/js/light-validate-js.svg)](https://badge.fury.io/js/light-validate-js)
+Light Validate JS
+====
 
-# Light Validate JS
+[![Greenkeeper badge](https://badges.greenkeeper.io/JennieJi/light-validate-js.svg)](https://greenkeeper.io/)
+[![npm version](https://badge.fury.io/js/light-validate-js.svg)](https://badge.fury.io/js/light-validate-js)
 
 This package provides light weight flexible JS validate helpers, supports async and group validation.
 
