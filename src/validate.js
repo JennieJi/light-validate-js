@@ -7,7 +7,7 @@
  * Validator
  * @typedef Validator {object|Array.<function|object>}	If it is array, first parameter is the validator function, following by parameters
  * @prop Validator.validator {function} Validator function will always take validate value as 1st parameter. If it return true or promise resolve as true, means validate pass. If it return string or promise resolve as string, result will be treated as error message. All the other results will be passed to {@link ValidateError.error}.
- * @prop Validator.parameters {Array} Optional. Extra parameters for {@link Validator.validator}. 
+ * @prop Validator.parameters {Array} Optional. Extra parameters for {@link Validator.validator}.
  * @prop Validator.errorMessage {string} Optional. Expected to be deprecated someday, since it's not as flexible as return error message by validator function directly (this is added in 0.0.2).
  */
 /**
@@ -22,7 +22,7 @@
 /**
  * ValidatePromise
  * @typedef ValidatePromise {Promise}
- * @prop ValidatePromise.then {function} Valid    
+ * @prop ValidatePromise.then {function} Valid
  * @prop ValidatePromise.catch {funciton} Invalid. Parameter: errors - can be normal exceptions, or single/array of {@link ValidateError}
  */
 
@@ -41,50 +41,57 @@ let promiseProxy = Promise;
  *]);
  */
 function validate(value, validators) {
-	if (Array.isArray(validators)) {
-		const validatorsLen = validators.length;
-		let validatePromises = [];
-		for (let i = 0; i < validatorsLen; i ++) {
-			let validatorConf = validators[i];
-			let validator;
-			let parameters;
-			let errorMessage;
-			if (Array.isArray(validatorConf)) {
-				[validator, ...parameters] = validatorConf;
-			} else {
-				validator = validatorConf.validator;
-				parameters = validatorConf.parameters || [];
-				errorMessage = validatorConf.errorMessage;
-			}
-			if (typeof validator !== 'function') {
-				throw `Validator "${validator}" must be a function!`;
-			} else {
-				let promise = promiseProxy.resolve(validator(value, ...parameters));
-				validatePromises.push(promise.then(result => {
-					if (result === true) {
-						return true;
-					}
-					if (typeof result === 'string') {
-						errorMessage = result;
-					}
-					// to deal with this in catch
-					throw result;
-				}).catch(error => {
-					throw {
-						validator,
-						parameters,
-						errorMessage,
-						error
-					};
-				}));
-			}
-		}
-		return promiseProxy.all(validatePromises).then(() => true).catch(err => {
-			throw err;
-		});
-	} else {
-		throw 'Second parameter should be a group of validators!';
-	}
+  if (Array.isArray(validators)) {
+    const validatorsLen = validators.length;
+    let validatePromises = [];
+    for (let i = 0; i < validatorsLen; i++) {
+      let validatorConf = validators[i];
+      let validator;
+      let parameters;
+      let errorMessage;
+      if (Array.isArray(validatorConf)) {
+        [validator, ...parameters] = validatorConf;
+      } else {
+        validator = validatorConf.validator;
+        parameters = validatorConf.parameters || [];
+        errorMessage = validatorConf.errorMessage;
+      }
+      if (typeof validator !== 'function') {
+        throw `Validator "${validator}" must be a function!`;
+      } else {
+        let promise = promiseProxy.resolve(validator(value, ...parameters));
+        validatePromises.push(
+          promise
+            .then(result => {
+              if (result === true) {
+                return true;
+              }
+              if (typeof result === 'string') {
+                errorMessage = result;
+              }
+              // to deal with this in catch
+              throw result;
+            })
+            .catch(error => {
+              throw {
+                validator,
+                parameters,
+                errorMessage,
+                error
+              };
+            })
+        );
+      }
+    }
+    return promiseProxy
+      .all(validatePromises)
+      .then(() => true)
+      .catch(err => {
+        throw err;
+      });
+  } else {
+    throw 'Second parameter should be a group of validators!';
+  }
 }
 
 /**
@@ -111,33 +118,35 @@ function validate(value, validators) {
  * });
  */
 function groupValidate(group, exitOnceError = true) {
-	if (typeof group !== 'object') {
-		throw 'Validate group should be an object!';
-	}
-	let validatePromises = [];
-	for (let name in group) {
-		let field = group[name];
-		if (typeof field !== 'object') {
-			throw 'Validate group item should be an object!';
-		} 
-		let {value, validators} = field;
-		let validatePromise = validate(value, validators);
-		validatePromises.push(validatePromise.catch(err => {
-			err.name = name;
-			if (exitOnceError) {
-				throw [err];
-			} else {
-				return err;
-			}
-		}));
-	}
-	return promiseProxy.all(validatePromises).then(result => {
-		let errors = result.filter(res => res !== true);
-		if (errors.length) {
-			throw errors;
-		}
-		return true;
-	});
+  if (typeof group !== 'object') {
+    throw 'Validate group should be an object!';
+  }
+  let validatePromises = [];
+  for (let name in group) {
+    let field = group[name];
+    if (typeof field !== 'object') {
+      throw 'Validate group item should be an object!';
+    }
+    let { value, validators } = field;
+    let validatePromise = validate(value, validators);
+    validatePromises.push(
+      validatePromise.catch(err => {
+        err.name = name;
+        if (exitOnceError) {
+          throw [err];
+        } else {
+          return err;
+        }
+      })
+    );
+  }
+  return promiseProxy.all(validatePromises).then(result => {
+    let errors = result.filter(res => res !== true);
+    if (errors.length) {
+      throw errors;
+    }
+    return true;
+  });
 }
 
 /**
@@ -145,8 +154,8 @@ function groupValidate(group, exitOnceError = true) {
  * @borrows validate
  * @borrows groupValidate
  */
-module.exports = {
-	Promise: promiseProxy,
-	validate,
-	groupValidate
+export default {
+  Promise: promiseProxy,
+  validate,
+  groupValidate
 };

@@ -1,4 +1,6 @@
-var ValidateModule = require('../dist/Validator.validate.js');
+var path = require('path');
+var pkg = require('../package.json');
+var ValidateModule = require(path.resolve(__dirname, '..', pkg.main)).default;
 var validate = ValidateModule.validate,
 	groupValidate = ValidateModule.groupValidate;
 var assert = require('assert');

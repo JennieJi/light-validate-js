@@ -1,5 +1,7 @@
 var assert = require('assert');
-var Validators = require('../dist/Validator.validator.js');
+var path = require('path');
+var pkg = require('../package.json');
+var Validators = require(path.resolve(__dirname, '..', pkg.main)).validators;
 
 describe('Validator - number', function() {
 	var NumberValidator = Validators.Number;
