@@ -1,7 +1,7 @@
 /**
  * @requires Validator.validator.Number
  */
-import NumberValidator from './number';
+import NumberValidator from './isNumber';
 /**
  * @member Validator.validator
  * @method NumberRange
@@ -12,7 +12,7 @@ import NumberValidator from './number';
  * @prop hash.excludeEdge {boolean}
  * @return {boolean}
  */
-export default function(value, hash = {}) {
+export default function inRange(value, hash = {}) {
   if (!NumberValidator(value)) {
     return false;
   }
