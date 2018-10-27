@@ -1,8 +1,6 @@
 {
-  "extends": "tsconfig.base.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "dist",
-    "target": "es5",
-    "lib": ["esnext"]
+    "outDir": "dist"
   }
 }
