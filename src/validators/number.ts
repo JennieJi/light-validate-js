@@ -1,10 +1,10 @@
 /**
  * @member Validator.validator
  * @method Number
- * @param value {}
+ * @param value any
  * @return {boolean}
  */
-export default function(value) {
+export default function(value: any): boolean {
   return (
     value !== null &&
     (isFinite(value) || (typeof value === 'number' && !isNaN(value)))

@@ -28,6 +28,29 @@
 
 let promiseProxy = Promise;
 
+export interface ValidatorObjectForm {
+  validator: Function;
+  parameters: any[];
+  errorMessage?: string;
+}
+
+export type ValidatorArrayForm = [Function, ...any[]];
+
+export interface ValidateError {
+  validator: Function;
+  parameters: any[];
+  error: Error;
+  errorMessage: string;
+  name?: string;
+}
+
+export interface ValueAndValidatorGroup {
+  [key: string]: {
+    value: any;
+    validators: Array<ValidatorObjectForm | ValidatorArrayForm>;
+  };
+}
+
 /**
  * @protected
  * @function
@@ -40,15 +63,18 @@ let promiseProxy = Promise;
  *	[email]
  *]);
  */
-function validate(value, validators) {
+function validate(
+  value: any,
+  validators: Array<ValidatorObjectForm | ValidatorArrayForm>
+) {
   if (Array.isArray(validators)) {
     const validatorsLen = validators.length;
     let validatePromises = [];
     for (let i = 0; i < validatorsLen; i++) {
       let validatorConf = validators[i];
-      let validator;
-      let parameters;
-      let errorMessage;
+      let validator: Function;
+      let parameters: any[];
+      let errorMessage: string;
       if (Array.isArray(validatorConf)) {
         [validator, ...parameters] = validatorConf;
       } else {
@@ -78,7 +104,7 @@ function validate(value, validators) {
                 parameters,
                 errorMessage,
                 error
-              };
+              } as ValidateError;
             })
         );
       }
@@ -117,7 +143,10 @@ function validate(value, validators) {
  *	}
  * });
  */
-function groupValidate(group, exitOnceError = true) {
+function groupValidate(
+  group: ValueAndValidatorGroup,
+  exitOnceError: boolean = true
+) {
   if (typeof group !== 'object') {
     throw 'Validate group should be an object!';
   }
