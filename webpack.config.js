@@ -4,6 +4,9 @@ module.exports = {
   entry: {
     Validator: './src/index.ts'
   },
+  resolve: {
+    extensions: ['.ts', '.js']
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
@@ -21,8 +24,13 @@ module.exports = {
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        use: 'ts-loader',
-        options: { configFile: '../tsconfig.webpack.json' }
+        use: [
+          { loader: 'babel-loader' },
+          {
+            loader: 'ts-loader',
+            options: { configFile: '../tsconfig.webpack.json' }
+          }
+        ]
       }
     ]
   }

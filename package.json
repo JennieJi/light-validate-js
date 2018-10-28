@@ -11,12 +11,14 @@
   ],
   "scripts": {
     "build": "NODE_ENV=production webpack -p && tsc -p ./tsconfig.esm.json",
-    "test": "npm run build && BABEL_ENV=testing mocha test",
+    "pretest": "npm run build",
+    "test": "BABEL_ENV=testing mocha test",
     "test:coverage": "npm run test --coverage --coverageReporters=lcov",
     "docs": "jsdoc2md -t README.template.md './src/**/*.js' > README.md",
-    "precommit": "eslint src/ --quiet --ext .js --fix src/",
+    "precommit": "npm run eslint && npm run tslint",
     "prepublishOnly": "npm run docs & npm run build && yarn test",
-    "lint": "eslint src/ --quiet --ext .js --fix src/",
+    "eslint": "eslint test/ --quiet --ext .js --fix test/",
+    "tslint": "tslint src/**/*",
     "prettier": "prettier --write src/**/*.js"
   },
   "keywords": [
