@@ -1,11 +1,11 @@
 /**
  * Validator.validator
  */
-import Regular from './regular';
+import Email from './email';
+import Length from './length';
 import NumberValidator from './number';
 import NumberRange from './number-range';
-import Length from './length';
-import Email from './email';
+import Regular from './regular';
 
 /**
  * @module Validator.validator

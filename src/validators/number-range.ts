@@ -3,7 +3,7 @@
  */
 import NumberValidator from './number';
 
-export interface NumberRangeHash {
+export interface INumberRangeHash {
   min?: number;
   max?: number;
   excludeEdge?: boolean;
@@ -19,14 +19,20 @@ export interface NumberRangeHash {
  * @prop hash.excludeEdge {boolean}
  * @return {boolean}
  */
-export default function(value: any, hash: NumberRangeHash = {}): boolean {
+export default function(value: any, hash: INumberRangeHash = {}): boolean {
   if (!NumberValidator(value)) {
     return false;
   }
-  let { min, max, excludeEdge } = hash;
+  const { min: passedMin, max: passedMax, excludeEdge } = hash;
   value = parseFloat(value);
-  min = NumberValidator(min) ? parseFloat(min.toString()) : -Infinity;
-  max = NumberValidator(max) ? parseFloat(max.toString()) : Infinity;
+
+  const min = NumberValidator(passedMin)
+    ? parseFloat(passedMin.toString())
+    : -Infinity;
+  const max = NumberValidator(passedMax)
+    ? parseFloat(passedMax.toString())
+    : Infinity;
+
   return (
     (value > min && value < max) ||
     (!excludeEdge && (value === min || value === max))

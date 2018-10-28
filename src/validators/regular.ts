@@ -1,4 +1,4 @@
-export interface RegularHash {
+export interface IRegularHash {
   regular?: RegExp;
 }
 
@@ -9,8 +9,8 @@ export interface RegularHash {
  * @prop hash.regular {RegExp}
  * @return {boolean}
  */
-export default function(value: any, hash: RegularHash = {}): boolean {
-  let { regular } = hash;
+export default function(value: any, hash: IRegularHash = {}): boolean {
+  const { regular } = hash;
   if (regular instanceof RegExp) {
     return regular.test(value);
   }
