@@ -26,7 +26,33 @@
  * @prop ValidatePromise.catch {funciton} Invalid. Parameter: errors - can be normal exceptions, or single/array of {@link ValidateError}
  */
 
-let promiseProxy = Promise;
+const promiseProxy = Promise;
+
+export interface IValidatorObjectForm {
+  validator: (...rest: any[]) => Promise<boolean>;
+  parameters: any[];
+  errorMessage?: string;
+}
+
+export type ValidatorArrayForm = [
+  (...rest: any[]) => Promise<boolean>,
+  ...any[]
+];
+
+export interface IValidateError {
+  validator: (...rest: any[]) => Promise<boolean>;
+  parameters: any[];
+  error: Error;
+  errorMessage: string;
+  name?: string;
+}
+
+export interface IValueAndValidatorGroup {
+  [key: string]: {
+    value: any;
+    validators: Array<IValidatorObjectForm | ValidatorArrayForm>;
+  };
+}
 
 /**
  * @protected
@@ -36,19 +62,23 @@ let promiseProxy = Promise;
  * @return 				{ValidatePromise}
  * @example
  * validate('jennie.ji@shopeemobile.com', [
- *	[length, {min: 0}],
- *	[email]
- *]);
+ *  [length, {min: 0}],
+ *  [email]
+ * ]);
  */
-function validate(value, validators) {
+function validate(
+  value: any,
+  validators: Array<IValidatorObjectForm | ValidatorArrayForm>
+) {
   if (Array.isArray(validators)) {
     const validatorsLen = validators.length;
-    let validatePromises = [];
+    const validatePromises = [];
+
     for (let i = 0; i < validatorsLen; i++) {
-      let validatorConf = validators[i];
-      let validator;
-      let parameters;
-      let errorMessage;
+      const validatorConf = validators[i];
+      let validator: (...rest: any[]) => Promise<boolean>;
+      let parameters: any[];
+      let errorMessage: string;
       if (Array.isArray(validatorConf)) {
         [validator, ...parameters] = validatorConf;
       } else {
@@ -57,9 +87,9 @@ function validate(value, validators) {
         errorMessage = validatorConf.errorMessage;
       }
       if (typeof validator !== 'function') {
-        throw `Validator "${validator}" must be a function!`;
+        throw new Error(`Validator "${validator}" must be a function!`);
       } else {
-        let promise = promiseProxy.resolve(validator(value, ...parameters));
+        const promise = promiseProxy.resolve(validator(value, ...parameters));
         validatePromises.push(
           promise
             .then(result => {
@@ -78,7 +108,7 @@ function validate(value, validators) {
                 parameters,
                 errorMessage,
                 error
-              };
+              } as IValidateError;
             })
         );
       }
@@ -90,58 +120,67 @@ function validate(value, validators) {
         throw err;
       });
   } else {
-    throw 'Second parameter should be a group of validators!';
+    throw new Error('Second parameter should be a group of validators!');
   }
 }
 
 /**
  * @protected
  * @function
- * @param group 			 	{Object.<object>}
- * @param [exitOnceError=true] 	{boolean}
- * @return						{ValidatePromise}
+ * @param group                 {Object.<object>}
+ * @param [exitOnceError=true]  {boolean}
+ * @return                      {ValidatePromise}
  * @example
  * groupValidate({
- *	name: {
- *		value: 'Jennie',
- *		validators: [
- *			[length, {min: 3, max: 50}]
- *		]
- *	},
- * 	email: {
- *		value: 'jennie.ji@shopeemobile.com',
- *		validators: [
- *			[length, {min: 0}],
- *			[email]
- *		]
- *	}
+ * name: {
+ *    value: 'Jennie',
+ *    validators: [
+ *      [length, {min: 3, max: 50}]
+ *    ]
+ *  },
+ *  email: {
+ *    value: 'jennie.ji@shopeemobile.com',
+ *    validators: [
+ *      [length, {min: 0}],
+ *      [email]
+ *    ]
+ *  }
  * });
  */
-function groupValidate(group, exitOnceError = true) {
+function groupValidate(
+  group: IValueAndValidatorGroup,
+  exitOnceError: boolean = true
+) {
   if (typeof group !== 'object') {
-    throw 'Validate group should be an object!';
+    throw new Error('Validate group should be an object!');
   }
-  let validatePromises = [];
-  for (let name in group) {
-    let field = group[name];
-    if (typeof field !== 'object') {
-      throw 'Validate group item should be an object!';
+  const validatePromises = [];
+
+  for (const name in group) {
+    if (group.hasOwnProperty(name)) {
+      const field = group[name];
+
+      if (typeof field !== 'object') {
+        throw new Error('Validate group item should be an object!');
+      }
+      const { value, validators } = field;
+      const validatePromise = validate(value, validators);
+
+      validatePromises.push(
+        validatePromise.catch(err => {
+          err.name = name;
+          if (exitOnceError) {
+            throw [err];
+          } else {
+            return err;
+          }
+        })
+      );
     }
-    let { value, validators } = field;
-    let validatePromise = validate(value, validators);
-    validatePromises.push(
-      validatePromise.catch(err => {
-        err.name = name;
-        if (exitOnceError) {
-          throw [err];
-        } else {
-          return err;
-        }
-      })
-    );
   }
+
   return promiseProxy.all(validatePromises).then(result => {
-    let errors = result.filter(res => res !== true);
+    const errors = result.filter(res => res !== true);
     if (errors.length) {
       throw errors;
     }
