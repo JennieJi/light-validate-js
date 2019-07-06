@@ -1,12 +1,14 @@
 module.exports = {
+    "extends": "eslint:recommended",
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
     "env": {
         "es6": true,
         "node": true,
         "mocha": true
     },
-    "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 2015,
+        "ecmaVersion": 2018,
         "sourceType": "module"
     },
     "rules": {

@@ -1,7 +1,6 @@
 [![npm version](https://badge.fury.io/js/light-validate-js.svg)](https://badge.fury.io/js/light-validate-js)
 [![Build Status](https://travis-ci.org/JennieJi/lazy-jest.svg?branch=master)](https://travis-ci.org/JennieJi/lazy-jest)
 [![codecov](https://codecov.io/gh/JennieJi/lazy-jest/branch/master/graph/badge.svg)](https://codecov.io/gh/JennieJi/lazy-jest)
-[![Greenkeeper badge](https://badges.greenkeeper.io/JennieJi/light-validate-js.svg)](https://greenkeeper.io/)
 
 # Light Validate JS
 
@@ -144,6 +143,20 @@ Regenerate document: `$: npm run docs`
 <dd></dd>
 </dl>
 
+## Constants
+
+<dl>
+<dt><a href="#regular_1">regular_1</a></dt>
+<dd></dd>
+<dt><a href="#email_1">email_1</a></dt>
+<dd><p>Validator.validator</p>
+</dd>
+<dt><a href="#number_1">number_1</a></dt>
+<dd></dd>
+<dt><a href="#number_1">number_1</a></dt>
+<dd></dd>
+</dl>
+
 ## Functions
 
 <dl>
@@ -198,9 +211,9 @@ Regenerate document: `$: npm run docs`
 
 **Example**  
 ```js
-validate('jennie.ji@shopeemobile.com', [
-	[length, {min: 0}],
-	[email]
+validate('jennie.ji@hotmail.com', [
+ [length, {min: 0}],
+ [email]
 ]);
 ```
 <a name="Validator.module_validate.groupValidate"></a>
@@ -217,24 +230,45 @@ validate('jennie.ji@shopeemobile.com', [
 **Example**  
 ```js
 groupValidate({
-	name: {
-		value: 'Jennie',
-		validators: [
-			[length, {min: 3, max: 50}]
-		]
-	},
-	email: {
-		value: 'jennie.ji@shopeemobile.com',
-		validators: [
-			[length, {min: 0}],
-			[email]
-		]
-	}
+name: {
+   value: 'Jennie',
+   validators: [
+     [length, {min: 3, max: 50}]
+   ]
+ },
+ email: {
+   value: 'jennie.ji@hotmail.com',
+   validators: [
+     [length, {min: 0}],
+     [email]
+   ]
+ }
 });
 ```
 <a name="Validator.module_validator"></a>
 
 ## validator
+<a name="regular_1"></a>
+
+## regular\_1
+**Kind**: global constant  
+**Requires**: <code>module:Validator.validator.Regular</code>  
+<a name="email_1"></a>
+
+## email\_1
+Validator.validator
+
+**Kind**: global constant  
+<a name="number_1"></a>
+
+## number\_1
+**Kind**: global constant  
+**Requires**: <code>module:Validator.validator.Number</code>, <code>module:Validator.validator.NumberRange</code>  
+<a name="number_1"></a>
+
+## number\_1
+**Kind**: global constant  
+**Requires**: <code>module:Validator.validator.Number</code>  
 <a name="validate"></a>
 
 ## validate(value, validators) ⇒ [<code>ValidatePromise</code>](#ValidatePromise)
@@ -248,9 +282,9 @@ groupValidate({
 
 **Example**  
 ```js
-validate('jennie.ji@shopeemobile.com', [
-	[length, {min: 0}],
-	[email]
+validate('jennie.ji@hotmail.com', [
+ [length, {min: 0}],
+ [email]
 ]);
 ```
 <a name="groupValidate"></a>
@@ -267,19 +301,19 @@ validate('jennie.ji@shopeemobile.com', [
 **Example**  
 ```js
 groupValidate({
-	name: {
-		value: 'Jennie',
-		validators: [
-			[length, {min: 3, max: 50}]
-		]
-	},
-	email: {
-		value: 'jennie.ji@shopeemobile.com',
-		validators: [
-			[length, {min: 0}],
-			[email]
-		]
-	}
+name: {
+   value: 'Jennie',
+   validators: [
+     [length, {min: 3, max: 50}]
+   ]
+ },
+ email: {
+   value: 'jennie.ji@hotmail.com',
+   validators: [
+     [length, {min: 0}],
+     [email]
+   ]
+ }
 });
 ```
 <a name="Email"></a>
@@ -287,19 +321,19 @@ groupValidate({
 ## Email(value) ⇒ <code>boolean</code>
 **Kind**: global function  
 
-| Param |
-| --- |
-| value | 
+| Param | Description |
+| --- | --- |
+| value | any |
 
 <a name="Length"></a>
 
 ## Length(value, hash) ⇒ <code>boolean</code>
 **Kind**: global function  
 
-| Param | Type |
-| --- | --- |
-| value |  | 
-| hash | <code>object</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| value |  | any |
+| hash | <code>object</code> |  |
 
 **Properties**
 
@@ -314,10 +348,10 @@ groupValidate({
 ## NumberRange(value, hash) ⇒ <code>boolean</code>
 **Kind**: global function  
 
-| Param | Type |
-| --- | --- |
-| value |  | 
-| hash | <code>object</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| value |  | any |
+| hash | <code>object</code> |  |
 
 **Properties**
 
@@ -332,19 +366,19 @@ groupValidate({
 ## Number(value) ⇒ <code>boolean</code>
 **Kind**: global function  
 
-| Param |
-| --- |
-| value | 
+| Param | Description |
+| --- | --- |
+| value | any |
 
 <a name="Regular"></a>
 
 ## Regular(value, hash) ⇒ <code>boolean</code>
 **Kind**: global function  
 
-| Param | Type |
-| --- | --- |
-| value |  | 
-| hash | <code>object</code> | 
+| Param | Type | Description |
+| --- | --- | --- |
+| value |  | any |
+| hash | <code>object</code> |  |
 
 **Properties**
 

@@ -1,6 +1,6 @@
 /**
  * Validator.Validate
- * @author Jennie Ji - jennie.ji@shopeemobile.com
+ * @author Jennie Ji - jennie.ji@hotmail.com
  */
 
 /**
@@ -61,7 +61,7 @@ export interface IValueAndValidatorGroup {
  * @param validators 	{Array.<Validator>}
  * @return 				{ValidatePromise}
  * @example
- * validate('jennie.ji@shopeemobile.com', [
+ * validate('jennie.ji@hotmail.com', [
  *  [length, {min: 0}],
  *  [email]
  * ]);
@@ -139,7 +139,7 @@ function validate(
  *    ]
  *  },
  *  email: {
- *    value: 'jennie.ji@shopeemobile.com',
+ *    value: 'jennie.ji@hotmail.com',
  *    validators: [
  *      [length, {min: 0}],
  *      [email]
@@ -157,7 +157,7 @@ function groupValidate(
   const validatePromises = [];
 
   for (const name in group) {
-    if (group.hasOwnProperty(name)) {
+    if (Object.prototype.hasOwnProperty.call(group, name)) {
       const field = group[name];
 
       if (typeof field !== 'object') {
